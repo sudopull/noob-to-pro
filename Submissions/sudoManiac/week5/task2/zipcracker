@@ -1,0 +1,25 @@
+#!/usr/bin/python2.7
+import crypt ,zipfile,sys
+def extractfile(zfile,password):
+	try:
+		zfile.extractall(pwd=password)
+		return password
+	except Exception,e:
+		 print e
+def main():
+	if len(sys.argv)==3:
+		zfile=zipfile.ZipFile(sys.argv[1])
+		passfile=open(sys.argv[2])
+		for line in passfile.readlines():
+			password=line.strip('\n')
+			guess=extractfile(zfile,password)
+			if guess:
+				print ('[+] Password ='+ password +'\n')
+				exit(0)
+			else:
+				print("NOT FOUND\n")
+
+	else:
+		print("ERROR!! Enter crackingFile and DictionaryFile")			
+if __name__=='__main__':
+		main()
